@@ -1,0 +1,157 @@
+/*
+ * XX公司源代码，版权归XX公司所有。
+ * 
+ * 项目名称 : rc_insurance
+ * 创建日期 : 2018年9月25日
+ * 修改历史 : 
+ *     1. [2018年9月25日]创建文件 by ChaoDi
+ */
+package com.third.api;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.math.BigDecimal;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.xml.rpc.ParameterMode;
+import javax.xml.rpc.encoding.XMLType;
+
+import org.apache.axis.client.Call;
+import org.apache.axis.client.Service;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.business.utils.Constants;
+import com.framework.base.utils.CommonUtil;
+import com.framework.base.utils.JacksonUtils;
+import com.framework.base.utils.StringUtils;
+import com.framework.base.utils.XmlUtils;
+import com.insurance.manager.impl.InsuranceRationManager;
+import javax.servlet.http.HttpServletRequest;
+
+import net.sf.json.JSONNull;
+import net.sf.json.JSONObject;
+
+/**
+ * //TODO 添加类/接口功能描述
+ * @author ChaoDi
+ */
+public class InsuranceApi {
+    private static Logger log = LoggerFactory.getLogger(InsuranceApi.class);
+
+/**
+*   webService 根据发送的url和参数param获取响应的报文
+*
+*/
+    public static String sendPost(String url, String param) {
+        OutputStreamWriter out = null;
+        BufferedReader in = null;
+        String result = "";
+        try {
+            URL realUrl = new URL(url);
+            HttpURLConnection conn = null;
+            conn = (HttpURLConnection) realUrl.openConnection();
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setConnectTimeout(300000);
+            conn.setReadTimeout(300000);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "text/html;charset=UTF-8");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.connect();
+            out = new OutputStreamWriter(conn.getOutputStream());
+            out.write(param);
+            out.flush();
+            in = new BufferedReader(
+                    new InputStreamReader(conn.getInputStream()));
+            String line;
+            while ((line = in.readLine()) != null) {
+                result += line;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 获得byte数组
+     *
+     * @param inputStream
+     * @return
+     * @throws IOException
+     */
+    public static byte[] readInputStream(InputStream inputStream) throws IOException {
+        BufferedInputStream bufferedInputStream = null;
+        ByteArrayOutputStream byteArrayOutputStream = null;
+        int byteLenth = -1;
+        byte[] receiveBytes = new byte[1024];
+
+        try {
+            bufferedInputStream = new BufferedInputStream(inputStream);
+            byteArrayOutputStream = new ByteArrayOutputStream(); // 请求数据存放对象
+
+            while ((byteLenth = bufferedInputStream.read(receiveBytes)) != -1) {
+                byteArrayOutputStream.write(receiveBytes, 0, byteLenth);
+            }
+
+            receiveBytes = byteArrayOutputStream.toByteArray();//得到一个byte数组
+        } finally {
+            if (null != bufferedInputStream) {
+                bufferedInputStream.close();
+            }
+
+            if (null != byteArrayOutputStream) {
+                byteArrayOutputStream.close();
+            }
+        }
+
+        return receiveBytes;
+    }
+    
+    /**
+     * 解析请求输入流获取请求报文
+     * @param request
+     * @return
+     * @throws IOException
+     */
+    public static String getRequestXml(HttpServletRequest request) throws IOException{
+        InputStream inputStream = request.getInputStream();
+        byte[] iXMLData = readInputStream(inputStream);
+        String requestXml = new String(iXMLData);
+        return requestXml;
+    }
+    
+
+    
+    public static void main(String[] args) throws Exception {
+
+    }
+}
