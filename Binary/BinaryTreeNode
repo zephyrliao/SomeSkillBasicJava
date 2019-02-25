@@ -1,4 +1,4 @@
-package tuning.treeNode;
+package Binary.BinaryTree;
 
 public class BinaryTreeNode {
 	
