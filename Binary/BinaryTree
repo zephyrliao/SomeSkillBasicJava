@@ -1,4 +1,4 @@
-package tuning.treeNode;
+package Binary.BinaryTree;
 
 import java.util.LinkedList;
 import java.util.Queue;
