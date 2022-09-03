@@ -27,17 +27,17 @@ public class AboutCalendar {
 		int weekOfYear =calendar.get(Calendar.WEEK_OF_YEAR);
 		int dayOfWeekInMonth = calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH);
 		
-	/*	System.out.println("Äê·Ý£º"+year);
-		System.out.println("ÔÂ·Ý£º"+month);
-		System.out.println("ÈÕ£º"+dayOfMonth);
-		System.out.println("Ê±£º"+hourOfDay);        
-		System.out.println("·Ö£º"+minute);
-		System.out.println("Ãë£º"+second);
+	/*	System.out.println("å¹´ä»½ï¼š"+year);
+		System.out.println("æœˆä»½ï¼š"+month);
+		System.out.println("æ—¥ï¼š"+dayOfMonth);
+		System.out.println("æ—¶ï¼š"+hourOfDay);        
+		System.out.println("åˆ†ï¼š"+minute);
+		System.out.println("ç§’ï¼š"+second);
 		
 		
-		System.out.println("ÐÇÆÚ£º"+dayOfWeek);
-		System.out.println("Õâ¸öÔÂ"+month+"ÔÂµÄµÚ"+weekOfMonth+"ÖÜ");
-		System.out.println("ÕâÄê"+year+"ÄêµÄµÚ"+weekOfYear+"ÖÜ");
+		System.out.println("æ˜ŸæœŸï¼š"+dayOfWeek);
+		System.out.println("è¿™ä¸ªæœˆ"+month+"æœˆçš„ç¬¬"+weekOfMonth+"å‘¨");
+		System.out.println("è¿™å¹´"+year+"å¹´çš„ç¬¬"+weekOfYear+"å‘¨");
 		
 		System.out.println(dayOfWeekInMonth);*/
 		
@@ -57,12 +57,12 @@ public class AboutCalendar {
 		
 		Calendar calendar2 = new GregorianCalendar();
 		/**
-		 * Ò»´ÎÉèÖÃ
+		 * ä¸€æ¬¡è®¾ç½®
 		 */
 //		calendar2.set(2018, 11, 2, 9, 50, 58);
 		
 		/**
-		 * ·Ö±ðÉè¶¨ÈÕÆÚ
+		 * åˆ†åˆ«è®¾å®šæ—¥æœŸ
 		 */
 		calendar2.set(Calendar.YEAR, 2018);
 		calendar2.set(Calendar.MONTH,11);
@@ -88,6 +88,5 @@ public class AboutCalendar {
 		return null;
 	}
 	
-	public static boolean 
 
 }
