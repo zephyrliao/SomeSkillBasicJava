@@ -1,0 +1,2 @@
+# SomeSkillBasicJava
+一些可以提升开发速度的java类,主要是common包和guava包
